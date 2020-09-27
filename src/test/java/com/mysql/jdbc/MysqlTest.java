@@ -106,5 +106,18 @@ public class MysqlTest {
       }
 
    }
+   @Test
+   public void test05()throws Exception{
+      Properties properties = new Properties();
+      properties.load(new FileInputStream("src/main/resources/datasource.properties"));
+      DataSource dataSource = DruidDataSourceFactory.createDataSource(properties);
+      Connection connection = dataSource.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement("select count(*) c from payment");
+      ResultSet resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()){
+         System.out.println(resultSet.getString("c"));
+      }
+
+   }
 
 }
